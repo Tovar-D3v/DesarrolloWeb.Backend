@@ -1,6 +1,6 @@
-// Importar servicio de proyectos
 const projectService = require('../services/project.service');
 
+// Controlador para crear un nuevo proyecto
 exports.createProject = async (req, res) => {
     try {
         const { nombre, descripcion, administrador_id } = req.body;
@@ -11,6 +11,7 @@ exports.createProject = async (req, res) => {
     }
 };
 
+// Controlador para obtener todos los proyectos
 exports.getAllProjects = async (req, res) => {
     try {
         const projects = await projectService.getAllProjects();
@@ -20,6 +21,7 @@ exports.getAllProjects = async (req, res) => {
     }
 };
 
+// Controlador para obtener todos los proyectos
 exports.assingUsersToProject = async (req, res) => {
     try {
         const data = req.body;
@@ -30,6 +32,7 @@ exports.assingUsersToProject = async (req, res) => {
     }
 };
 
+// Controlador para remover un usuario de un proyecto
 exports.removeUserFromProject = async (req, res) => {
     try {
         const data = req.body;
@@ -40,6 +43,7 @@ exports.removeUserFromProject = async (req, res) => {
     }
 };
 
+// Controlador para obtener un proyecto por su ID
 exports.getProjectById = async (req, res) => {
     try {
         const id = req.params.id;
@@ -50,6 +54,7 @@ exports.getProjectById = async (req, res) => {
     }
 };
 
+// Controlador para actualizar un proyecto
 exports.updateProject = async (req, res) => {
     try {
         const id = req.params.id;
@@ -61,6 +66,7 @@ exports.updateProject = async (req, res) => {
     }
 };
 
+// Controlador para eliminar un proyecto
 exports.deleteProject = async (req, res) => {
     try {
         const id = req.params.id;

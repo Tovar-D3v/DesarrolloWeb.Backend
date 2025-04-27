@@ -4,6 +4,7 @@ dotenv.config();
 
 const SECRET_KEY = process.env.JWT_SECRET;
 
+// Verifica si el token es válido y extrae la información del usuario
 const authenticateToken = (req, res, next) => {
     const token = req.header('Authorization')?.split(' ')[1];
 
@@ -20,6 +21,7 @@ const authenticateToken = (req, res, next) => {
     });
 };
 
+// Middleware para verificar el rol del usuario
 const checkRole = (roles) => {
     return (req, res, next) => {
         const { rol_id } = req.user;

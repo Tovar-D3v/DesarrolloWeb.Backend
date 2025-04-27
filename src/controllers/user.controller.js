@@ -1,6 +1,6 @@
-// Importar servicio de usuarios
 const userService = require('../services/user.service');
 
+// Controlador para crear un nuevo usuario
 exports.createUser = async (req, res) => {
     try { 
         const { nombre, email, password, rol_id, administrador_id } = req.body;
@@ -11,6 +11,7 @@ exports.createUser = async (req, res) => {
     }
 };
 
+// Controlador para obtener todos los usuarios
 exports.getAllUsersByAdministradorId = async (req, res) => {
     try {
         const admin_from_token = req.user.id;
@@ -22,6 +23,7 @@ exports.getAllUsersByAdministradorId = async (req, res) => {
     }
 };
 
+// Controlador para obtener todos los usuarios por rol
 exports.getAllUsersByRolId = async (req, res) => {
     try {
         const users = await userService.getAllUsersByRolId(req.params.id);
@@ -31,6 +33,7 @@ exports.getAllUsersByRolId = async (req, res) => {
     }
 };
 
+// Controlador para obtener un usuario por su ID
 exports.updateUser = async (req, res) => {
     const { id } = req.params;
     const { nombre, email, rol_id, administrador_id } = req.body; 
@@ -43,6 +46,7 @@ exports.updateUser = async (req, res) => {
     }
 };
 
+// Controlador para eliminar un usuario
 exports.deleteUser = async (req, res) => {
     const { id } = req.params;
     const admin_from_token = req.user.id;

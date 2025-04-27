@@ -1,5 +1,6 @@
 const authService = require('../services/auth.service');
 
+// Controller para manejar la autenticación de usuarios
 exports.login = async (req, res) => {
     const { email, password } = req.body;
     try{
