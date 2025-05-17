@@ -19,16 +19,18 @@ Backend desarrollado en Node.js y Express usando Sequelize y PostgreSQL para la 
 
 ```bash
 git clone https://github.com/tu_usuario/admin-access-project-backend.git
-
+```
 
 2. Instalar Dependecias
 
 ```bash
 npm install
+```
 
 
 3. Debes Crear un archivo .env e ingresar las credenciales de tu base de datos y token
 
+```bash
 PORT=3000
 DB_NAME=bd_proyecto
 DB_USER=usuario
@@ -36,11 +38,12 @@ DB_PASSWORD=password
 DB_HOST=localhost
 DB_PORT=5432
 JWT_SECRET=token
-
+```
 4. Correr proyecto
 
 ```bash
 npm run dev
+```
 
 
 5. Endpoints del Backend

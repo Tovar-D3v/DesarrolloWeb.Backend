@@ -25,7 +25,9 @@ exports.loginUser = async (email, password) => {
     const rolePermissions = await RolePermisssion.findAll({
       where: { rol_id: user.rol_id },
       attributes: ["permiso_id"],
-    });
+    }); 
+
+    const permisos = rolePermissions.map(rp => rp.permiso_id);
 
     const token = jwt.sign(
       {
