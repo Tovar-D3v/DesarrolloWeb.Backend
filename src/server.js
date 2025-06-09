@@ -1,23 +1,28 @@
 const sequelize = require('./config/database');
-const app = require('./app');
-const dotenv = require('dotenv');
+const app       = require('./app');
 require('./models/associations');
-
+const dotenv    = require('dotenv');
 dotenv.config();
 
 const PORT = process.env.PORT || 3000;
 
-sequelize.authenticate()
-    .then(() => {
-        console.log('Conectado a PostgreSQL con Sequalize');
-        app.listen(PORT, () => {
-            console.log('Servidor corriendo en http://localhost:' + PORT);
-        });
-    })
-    .catch(err => console.error('Error conectando a la base de datos:', err));
+async function start() {
+  try {
+    await sequelize.authenticate();
+    console.log('Conectado a PostgreSQL con Sequelize');
 
-sequelize.sync({ force: false }).then(() => {
-    console.log('Base de datos sincronizada');
-}).catch(err => {
-    console.error('Error al sincronizar la base de datos', err);
-});
+    await sequelize.sync({
+      alter: true,
+      logging: console.log
+    });
+    console.log('✅ Base de datos sincronizada (alter).');
+
+    app.listen(PORT, () => {
+      console.log(`Servidor corriendo en http://localhost:${PORT}`);
+    });
+  } catch (err) {
+    console.error('❌ Error al iniciar la aplicación:', err);
+  }
+}
+
+start();

@@ -7,6 +7,7 @@ exports.createUser = async (req, res) => {
         const newUser = await userService.createUser(nombre, email, password, rol_id, administrador_id);
         res.status(201).json({ message: 'Usuario creado con éxito', user: newUser });
     } catch (err) {
+        console.error('Error al crear usuario:', err);
         res.status(500).json({ message: err.message });
     }
 };
@@ -49,11 +50,20 @@ exports.updateUser = async (req, res) => {
 // Controlador para eliminar un usuario
 exports.deleteUser = async (req, res) => {
     const { id } = req.params;
-    const admin_from_token = req.user.id;
-    try {
-        const result = await userService.deleteUser(id, admin_from_token);
-        res.status(200).json(result);
-    } catch (err) {
-        res.status(500).json({ message: err.message });
+    const currentUserId = req.user.id;
+  
+    // Impedir que un usuario se borre a sí mismo
+    if (Number(id) === currentUserId) {
+      return res
+        .status(403)
+        .json({ message: 'No puedes eliminar tu propio usuario mientras estés logueado.' });
     }
-};
+  
+    //  Si no es el mismo eliminar
+    try {
+      const result = await userService.deleteUser(id, currentUserId);
+      return res.status(200).json(result);
+    } catch (err) {
+      return res.status(500).json({ message: err.message });
+    }
+  };

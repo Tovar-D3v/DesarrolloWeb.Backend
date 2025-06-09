@@ -108,6 +108,19 @@ exports.updateProject = async (id, nombre, descripcion, administrador_id) => {
     }
 };
 
+
+// Desasociar todos los usuarios de un proyecto
+exports.removeAllUsersFromProject = async (projectId) => {
+    const project = await Project.findByPk(projectId);
+
+    if (!project) {
+        throw new Error('Proyecto no encontrado');
+    }
+
+    // ✅ Remueve todas las asociaciones con usuarios
+    await project.setUsuarios([]);
+};
+
 // Servicio para eliminar un proyecto
 exports.deleteProject = async (id) => {
     try {
@@ -115,8 +128,12 @@ exports.deleteProject = async (id) => {
         if (!project) {
             throw new Error('Proyecto no encontrado');
         }
-        
+
+        // ✅ Elimina todas las asociaciones antes de borrar
+        await exports.removeAllUsersFromProject(id);
+
         await project.destroy();
+
         return { message: 'Proyecto eliminado con éxito' };
     } catch (err) {
         throw new Error(`Error al eliminar el proyecto: ${err.message}`);

@@ -10,7 +10,9 @@ const Project = sequelize.define('proyectos', {
     administrador_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        references: { model: 'usuarios', key: 'id' } 
+        references: { model: 'usuarios', key: 'id' },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
     }, 
     
 }, {

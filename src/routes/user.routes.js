@@ -6,11 +6,11 @@ const errorHandler = require('../middlewares/error.middleware');
 const { authenticateToken, checkRole } = require('../middlewares/auth.middleware');
 
 // Rutas para la gestión de usuarios
-router.post('/create', usuarioController.createUser);
-router.put('/update/:id', authenticateToken, checkRole([ROLES.ADMIN]), usuarioController.updateUser);
-router.get('/', authenticateToken, checkRole([ROLES.ADMIN]), usuarioController.getAllUsersByAdministradorId);
-router.delete('/delete/:id', authenticateToken, checkRole([ROLES.ADMIN]), usuarioController.deleteUser);
-router.get('/rol/:id', authenticateToken, checkRole([ROLES.ADMIN]), usuarioController.getAllUsersByRolId);
+router.post('/users/create', usuarioController.createUser);
+router.put('/users/update/:id', authenticateToken, checkRole([ROLES.ADMIN]), usuarioController.updateUser);
+router.get('/users/', authenticateToken, checkRole([ROLES.ADMIN]), usuarioController.getAllUsersByAdministradorId);
+router.delete('/users/delete/:id', authenticateToken, checkRole([ROLES.ADMIN]), usuarioController.deleteUser);
+router.get('/users/rol/:id', authenticateToken, checkRole([ROLES.ADMIN]), usuarioController.getAllUsersByRolId);
 
 router.use(errorHandler);
 
